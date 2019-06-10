@@ -1,0 +1,4 @@
+node_modules
+src/wordpress
+package-lock.json
+public
