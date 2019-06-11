@@ -5,18 +5,32 @@ const autoprefixer = require('autoprefixer');
 const concat = require('gulp-concat');
 const cleanCSS = require('gulp-clean-css');
 const rename = require("gulp-rename");
-const uglify = require('gulp-uglify-es').default;
 const imagemin = require('gulp-imagemin');
 const pngquant = require('imagemin-pngquant');
 const cache = require('gulp-cache');
 const del = require('del');
 const postcss = require('gulp-postcss');
+const webpack = require("webpack-stream");
+
+var webConfig =
+{
+    mode: "development",
+    performance: { hints: false },
+    output: { filename: 'app.js' },
+    module: {
+      rules: [
+          {
+            test: /\.(js)$/,
+            loader: 'babel-loader',
+            exclude: /(node_modules)/
+          }
+      ]
+    }
+};
 
 function js() {
     return src('src/js/*.js')
-    .pipe(concat('app.js'))
-    .pipe(rename({ suffix: '.min' }))
-    .pipe(uglify())
+    .pipe(webpack(webConfig))
     .pipe(dest('src/scripts'))
     .pipe(browserSync.stream());
 }
@@ -24,7 +38,12 @@ function js() {
 function styles() {
     return src('src/sass/*.+(sass|scss)')
     .pipe(sass().on('error', sass.logError))
-    .pipe(postcss([ autoprefixer({ grid: true, browsers: ['last 2 versions', 'ie 6-8', 'Firefox > 20'] }) ]))
+    .pipe(postcss([
+      autoprefixer({
+        grid: true,
+        Browserslist: ['last 2 versions', '>1%']
+      })
+    ]))
     .pipe(concat('main.css'))
     .pipe(dest('src/styles'))
     .pipe(cleanCSS({ compatibility: 'ie8' }))
@@ -35,8 +54,8 @@ function styles() {
 
 function browserReload() {
     browserSync.init({
-        proxy: 'localbuild',
-        //server: { baseDir: "./src" },
+        //proxy: 'localbuild',
+        server: { baseDir: "./src" },
         notify: false
     });
 
