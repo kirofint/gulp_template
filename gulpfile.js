@@ -65,7 +65,7 @@ function browserReload() {
     watch('src/sass/*.+(sass|scss)', styles);
 }
 
-const clear_cache =()=> { return cache.clearAll(); };
+
 function img() {
 	return src('src/img/**/*')
 		.pipe(cache(imagemin({
@@ -91,3 +91,4 @@ function collect() {
 
 exports.build = series(collect, img);
 exports.default = parallel(js, styles, browserReload);
+exports.clear =()=> cache.clearAll();
