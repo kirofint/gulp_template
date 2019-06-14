@@ -83,7 +83,7 @@ function collect() {
         src('src/libs/**/*').pipe(dest('public/libs'));
         src('src/fonts/**/*').pipe(dest('public/fonts'));
         src('src/scripts/**/*').pipe(dest('public/scripts'));
-        src('src/styles/**/*.min.css').pipe(dest('public/styles'));
+        src('src/styles/**/*').pipe(dest('public/styles'));
         src('src/*.+(html|php)').pipe(dest('public'));
       resolve();
     });
