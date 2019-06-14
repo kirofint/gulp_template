@@ -11,10 +11,13 @@ const cache = require('gulp-cache');
 const del = require('del');
 const postcss = require('gulp-postcss');
 const webpack = require("webpack-stream");
+const log = require('fancy-log');
+
+var toggleMode = (false) ? "production" : "development";
 
 var webConfig =
 {
-    mode: "development",
+    mode: toggleMode,
     stats: 'errors-only',
     performance: { hints: false },
     output: { filename: 'app.js' },
@@ -40,10 +43,7 @@ function styles() {
   return src('src/sass/*.+(sass|scss)')
     .pipe(sass().on('error', sass.logError))
     .pipe(postcss([
-      autoprefixer({
-        grid: true,
-        Browserslist: ['last 2 versions', '>1%']
-      })
+      autoprefixer({ overrideBrowserslist: ["last 2 version", "> 1%"] })
     ]))
     .pipe(concat('main.css'))
     .pipe(dest('src/styles'))
