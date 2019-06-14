@@ -1,7 +1,6 @@
 {
-  "name": "gulpes",
-  "version": "3.0.0",
-  "description": "",
+  "name": "gulp_es",
+  "version": "4.0.0",
   "main": "gulpfile.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -25,7 +24,6 @@
     "gulp-sass": "^4.0.2",
     "gulp-uglify-es": "^1.0.4",
     "imagemin-pngquant": "^8.0.0",
-    "webpack": "^4.33.0",
     "webpack-stream": "^5.2.1"
   },
   "dependencies": {
@@ -34,10 +32,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/majois/the_task.git"
+    "url": "git+https://github.com/majois"
   },
   "bugs": {
-    "url": "https://github.com/majois/the_task/issues"
+    "url": "https://github.com/majois"
   },
-  "homepage": "https://github.com/majois/the_task#readme"
+  "homepage": "https://github.com/majois",
+  "description": ""
 }

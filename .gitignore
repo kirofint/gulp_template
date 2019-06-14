@@ -1,4 +1,6 @@
 node_modules
 src/wordpress
+src/styles
+src/scripts
 package-lock.json
 public

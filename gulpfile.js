@@ -15,6 +15,7 @@ const webpack = require("webpack-stream");
 var webConfig =
 {
     mode: "development",
+    stats: 'errors-only',
     performance: { hints: false },
     output: { filename: 'app.js' },
     module: {
@@ -29,14 +30,14 @@ var webConfig =
 };
 
 function js() {
-    return src('src/js/*.js')
+  return src('src/js/*.js')
     .pipe(webpack(webConfig))
     .pipe(dest('src/scripts'))
     .pipe(browserSync.stream());
 }
 
 function styles() {
-    return src('src/sass/*.+(sass|scss)')
+  return src('src/sass/*.+(sass|scss)')
     .pipe(sass().on('error', sass.logError))
     .pipe(postcss([
       autoprefixer({
@@ -56,7 +57,7 @@ function browserReload() {
     browserSync.init({
         //proxy: 'localbuild',
         server: { baseDir: "./src" },
-        notify: false
+        notify: false,
     });
 
     watch('src/*.+(html|php)').on('change', browserSync.reload);
