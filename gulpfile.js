@@ -43,11 +43,11 @@ function styles() {
   return src('src/sass/*.+(sass|scss)')
     .pipe(sass().on('error', sass.logError))
     .pipe(postcss([
-      autoprefixer({ overrideBrowserslist: ["last 2 version", "> 1%"] })
+      autoprefixer({ overrideBrowserslist: ["ie >= 9", "> 0%"],	cascade: false })
     ]))
     .pipe(concat('main.css'))
     .pipe(dest('src/styles'))
-    .pipe(cleanCSS({ compatibility: 'ie8' }))
+    .pipe(cleanCSS({ compatibility: 'ie9' }))
     .pipe(rename({ suffix: '.min' }))
     .pipe(dest('src/styles'))
     .pipe(browserSync.stream());
