@@ -20,7 +20,9 @@
     "gulp-clean-css": "^4.2.0",
     "gulp-concat": "^2.6.1",
     "gulp-imagemin": "^6.0.0",
+    "gulp-jade": "^1.1.0",
     "gulp-postcss": "^8.0.0",
+    "gulp-pug": "^4.0.1",
     "gulp-rename": "^1.4.0",
     "gulp-sass": "^4.0.2",
     "gulp-uglify-es": "^1.0.4",
@@ -28,7 +30,9 @@
     "webpack-stream": "^5.2.1"
   },
   "dependencies": {
+    "bootstrap": "^4.3.1",
     "jquery": "^3.4.1",
+    "react-bootstrap": "^1.0.0-beta.9",
     "slick-carousel": "^1.8.1"
   },
   "repository": {

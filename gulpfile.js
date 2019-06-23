@@ -11,6 +11,7 @@ const cache = require('gulp-cache');
 const del = require('del');
 const postcss = require('gulp-postcss');
 const webpack = require("webpack-stream");
+const pug = require('gulp-pug');
 const log = require('fancy-log');
 
 var toggleMode = (false) ? "production" : "development";
@@ -53,19 +54,27 @@ function styles() {
     .pipe(browserSync.stream());
 }
 
-function browserReload() {
-    browserSync.init({
-        //proxy: 'localbuild',
-        server: { baseDir: "./src" },
-        notify: false,
-    });
-
-    watch('src/*.+(html|php)').on('change', browserSync.reload);
-    watch('src/js/*.js', js);
-    watch('src/sass/*.+(sass|scss)', styles);
+function pug_to_html() {
+  return src('src/pug/**/*.pug')
+    .pipe(pug())
+    .pipe(dest('src'))
+    .pipe(browserSync.stream());
 }
 
+function browserReload() {
+    browserSync.init({
+        //proxy: '',
+        server: { baseDir: "./src" },
+        notify: false,
+        open: false
+    });
 
+    watch('src/js/*.js', js);
+    watch('src/sass/*.+(sass|scss)', styles);
+    watch('src/pug/*.pug', pug_to_html);
+}
+
+/** TO COMPILE */
 function img() {
 	return src('src/img/**/*')
 		.pipe(cache(imagemin({
@@ -88,7 +97,8 @@ function collect() {
       resolve();
     });
 }
+/** END TO COMPILE */
 
 exports.build = series(collect, img);
-exports.default = parallel(js, styles, browserReload);
+exports.default = parallel(js, styles, pug_to_html, browserReload);
 exports.clear =()=> cache.clearAll();
