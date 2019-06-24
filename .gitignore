@@ -1,7 +1,5 @@
 node_modules
-src/wordpress
-src/styles
-src/scripts
 public
-src/styles/main.css
-src/styles/main.min.css
+src/wordpress
+src/scripts
+src/styles
