@@ -1,5 +1,7 @@
 node_modules
 public
 src/wordpress
+src/fonts
 src/scripts
 src/styles
+src/*.html
