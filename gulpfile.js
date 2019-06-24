@@ -70,7 +70,7 @@ function browserReload() {
     browserSync.init({
         server: { baseDir: "./src" },
         notify: false,
-        open: true
+        open: false
     });
 
     watch('src/js/*.js', js);
