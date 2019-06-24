@@ -2,7 +2,6 @@ node_modules
 src/wordpress
 src/styles
 src/scripts
-package-lock.json
 public
 src/styles/main.css
 src/styles/main.min.css
