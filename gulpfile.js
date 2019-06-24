@@ -33,11 +33,16 @@ var webConfig =
     }
 };
 
-function js() {
-  return src('src/js/*.js')
-    .pipe(webpack(webConfig))
-    .pipe(dest('src/scripts'))
+function pug_to_html() {
+  return src('src/pug/**/*.pug')
+    .pipe(pug())
+    .pipe(dest('src'))
     .pipe(browserSync.stream());
+}
+
+function fonts() {
+  return src('node_modules/font-awesome/fonts/*')
+    .pipe(dest('src/fonts/FontAwesome'))
 }
 
 function styles() {
@@ -54,19 +59,18 @@ function styles() {
     .pipe(browserSync.stream());
 }
 
-function pug_to_html() {
-  return src('src/pug/**/*.pug')
-    .pipe(pug())
-    .pipe(dest('src'))
+function js() {
+  return src('src/js/*.js')
+    .pipe(webpack(webConfig))
+    .pipe(dest('src/scripts'))
     .pipe(browserSync.stream());
 }
 
 function browserReload() {
     browserSync.init({
-        //proxy: '',
         server: { baseDir: "./src" },
         notify: false,
-        open: false
+        open: true
     });
 
     watch('src/js/*.js', js);
@@ -100,5 +104,5 @@ function collect() {
 /** END TO COMPILE */
 
 exports.build = series(collect, img);
-exports.default = parallel(js, styles, pug_to_html, browserReload);
+exports.default = parallel(pug_to_html, fonts, styles, js, browserReload);
 exports.clear =()=> cache.clearAll();
