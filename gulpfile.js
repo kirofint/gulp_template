@@ -31,8 +31,8 @@ var webConfig =
     }
 };
 
-function pug_to_html() {
-  return src('src/pug/**/*.pug')
+function convert_to_html() {
+  return src('src/html_compile/*.+(pug|jade)')
     .pipe(pug())
     .pipe(dest('src'));
 }
@@ -45,9 +45,6 @@ function fonts() {
 function styles() {
   return src('src/sass/*.+(sass|scss)')
     .pipe(sass().on('error', sass.logError))
-    .pipe(postcss([
-      autoprefixer({ overrideBrowserslist: ["ie >= 9", "> 0%"],	cascade: false })
-    ]))
     .pipe(concat('main.min.css'))
     .pipe(dest('src/styles'))
     .pipe(browserSync.stream());
@@ -68,9 +65,9 @@ function browserReload() {
     });
 
     watch('src/js/*.js', js);
-    watch('src/pug/*.pug', pug_to_html);
+    watch('src/html_compile/*.+(pug|jade)', convert_to_html);
     watch('src/sass/*.+(sass|scss)', styles);
-    watch("src/*.html").on('change', browserSync.reload);
+    watch("src/*.+(html|php)").on('change', browserSync.reload);
 }
 
 /** TO COMPILE */
@@ -85,14 +82,17 @@ function img() {
 		.pipe(dest('public/img'));
 }
 
-function mincss(params) {
+function setcss() {
   return src('src/styles/**/*.css')
     .pipe(sourcemaps.init())
+      .pipe(postcss([
+        autoprefixer({ overrideBrowserslist: ["ie >= 9", "> 0%"],	cascade: false })
+      ]))
       .pipe(cleanCSS({ compatibility: 'ie9' }))
     .pipe(dest('public/styles'))
 }
 
-function minjs() {
+function setjs() {
   webConfig.mode = "production";
   return src('src/js/*.js')
     .pipe(webpack(webConfig))
@@ -111,6 +111,6 @@ function collect() {
 }
 /** END TO COMPILE */
 
-exports.build = series(collect, minjs, mincss, img);
-exports.default = parallel(fonts, styles, js, pug_to_html, browserReload);
+exports.build = series(collect, setjs, setcss, img);
+exports.default = parallel(fonts, styles, js, convert_to_html, browserReload);
 exports.clear =()=> cache.clearAll();
