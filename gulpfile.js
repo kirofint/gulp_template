@@ -67,7 +67,7 @@ function browserReload() {
     });
 
     watch('src/js/*.js', js);
-    watch('src/html_compile/*.+(pug|jade)', convert_to_html);
+    watch('src/html_compile/**/*.+(pug|jade)', convert_to_html);
     watch('src/sass/*.+(sass|scss)', styles);
     watch("src/*.+(html|php)").on('change', browserSync.reload);
 }
