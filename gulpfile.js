@@ -12,7 +12,9 @@ const del = require('del');
 const postcss = require('gulp-postcss');
 const webpack = require("webpack-stream");
 const pug = require('gulp-pug');
-const log = require('fancy-log');;
+const log = require('fancy-log');
+
+const public_path = "public";
 
 var webConfig =
 {
@@ -79,7 +81,7 @@ function img() {
 			svgoPlugins: [{removeViewBox: false}],
 			use: [pngquant()]
 		})))
-		.pipe(dest('public/img'));
+		.pipe(dest(`${public_path}/img`));
 }
 
 function setcss() {
@@ -89,7 +91,7 @@ function setcss() {
         autoprefixer({ overrideBrowserslist: ["ie >= 9", "> 0%"],	cascade: false })
       ]))
       .pipe(cleanCSS({ compatibility: 'ie9' }))
-    .pipe(dest('public/styles'))
+    .pipe(dest(`${public_path}/styles`))
 }
 
 function setjs() {
@@ -97,15 +99,15 @@ function setjs() {
   return src('src/js/*.js')
     .pipe(webpack(webConfig))
     .pipe(sourcemaps.init())
-    .pipe(dest('public/scripts'))
+    .pipe(dest(`${public_path}/scripts`))
 }
 
 function collect() {
     return new Promise(function(resolve) {
-        del.sync('public');
-        src('src/libs/**/*').pipe(dest('public/libs'));
-        src('src/fonts/**/*').pipe(dest('public/fonts'));
-        src('src/*.+(html|php)').pipe(dest('public'));
+        del.sync(public_path);
+        src('src/libs/**/*').pipe(dest(`${public_path}/libs`));
+        src('src/fonts/**/*').pipe(dest(`${public_path}/fonts`));
+        src('src/*.+(html|php)').pipe(dest(public_path));
       resolve();
     });
 }
