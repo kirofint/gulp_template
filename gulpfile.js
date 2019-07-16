@@ -45,7 +45,7 @@ function fonts() {
 }
 
 function styles() {
-  return src('src/sass/*.+(sass|scss)')
+  return src('src/sass/**/*.+(sass|scss)')
     .pipe(sass().on('error', sass.logError))
     .pipe(concat('main.min.css'))
     .pipe(dest('src/styles'))
@@ -68,7 +68,7 @@ function browserReload() {
 
     watch('src/js/*.js', js);
     watch('src/html_compile/**/*.+(pug|jade)', convert_to_html);
-    watch('src/sass/*.+(sass|scss)', styles);
+    watch('src/sass/**/*.+(sass|scss)', styles);
     watch("src/*.+(html|php)").on('change', browserSync.reload);
 }
 
