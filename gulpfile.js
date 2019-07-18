@@ -40,8 +40,14 @@ function convert_to_html() {
 }
 
 function fonts() {
-  return src('node_modules/font-awesome/fonts/*')
-    .pipe(dest('src/fonts/FontAwesome'))
+  return new Promise(function(resolve) {
+    src('node_modules/font-awesome/fonts/*')
+      .pipe(dest('src/fonts/FontAwesome'));
+    src('node_modules/normalize.css/normalize.css')
+      .pipe(dest('src/libs'));
+
+   resolve();
+  });
 }
 
 function styles() {
@@ -88,7 +94,7 @@ function setcss() {
   return src('src/styles/**/*.css')
     .pipe(sourcemaps.init())
       .pipe(postcss([
-        autoprefixer({ overrideBrowserslist: ["ie >= 9", "> 0%"],	cascade: false })
+        autoprefixer({ grid: true, overrideBrowserslist: ["ie >= 9", "> 0%"],	cascade: false })
       ]))
       .pipe(cleanCSS({ compatibility: 'ie9' }))
     .pipe(dest(`${public_path}/styles`))
