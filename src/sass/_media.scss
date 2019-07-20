@@ -1,2 +1,29 @@
 @import "../libs/include-media.scss";
 $breakpoints: (small: 600px, smaller: 780px, medium: 1000px, large: 1300px);
+/* 320px => 280px */
+
+@include media(">large") {
+  .main-container {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@include media("<=large") {
+
+}
+
+@include media("<=medium") {
+
+}
+
+@include media("<=smaller") {
+  .main-container {
+    margin-left: 15px;
+    margin-right: 15px;
+  }
+}
+
+@include media("<=small") {
+
+}

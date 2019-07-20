@@ -45,7 +45,6 @@ function fonts() {
       .pipe(dest('src/fonts/FontAwesome'));
     src('node_modules/normalize.css/normalize.css')
       .pipe(dest('src/libs'));
-
    resolve();
   });
 }
@@ -53,7 +52,7 @@ function fonts() {
 function styles() {
   return src('src/sass/**/*.+(sass|scss)')
     .pipe(sass().on('error', sass.logError))
-    .pipe(concat('main.min.css'))
+    .pipe(concat('main.css'))
     .pipe(dest('src/styles'))
     .pipe(browserSync.stream());
 }
@@ -96,6 +95,8 @@ function setcss() {
       .pipe(postcss([
         autoprefixer({ grid: true, overrideBrowserslist: ["ie >= 9", "> 0%"],	cascade: false })
       ]))
+      .pipe(dest(`${public_path}/styles`))
+      .pipe(rename("main.min.css"))
       .pipe(cleanCSS({ compatibility: 'ie9' }))
     .pipe(dest(`${public_path}/styles`))
 }
