@@ -13,7 +13,7 @@ const postcss = require('gulp-postcss');
 const webpack = require("webpack-stream");
 const rename = require('gulp-rename');
 const pug = require('gulp-pug');
-const log = require('fancy-log');
+//const log = require('fancy-log');
 
 const public_path = "public";
 
@@ -36,7 +36,7 @@ var webConfig =
 
 function convert_to_html() {
   return src('src/html_compile/*.+(pug|jade)')
-    .pipe(pug())
+    .pipe(pug({ pretty: false }))
     .pipe(dest('src'));
 }
 
@@ -124,3 +124,5 @@ function collect() {
 exports.build = series(collect, setjs, setcss, img);
 exports.default = parallel(fonts, styles, js, convert_to_html, browserReload);
 exports.clear =()=> cache.clearAll();
+
+/** use the "rimraf node_modules" for deleting */

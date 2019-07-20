@@ -1,4 +1,4 @@
-@import "../libs/include-media.scss";
+@import "../../node_modules/include-media/dist/include-media";
 $breakpoints: (small: 600px, smaller: 780px, medium: 1000px, large: 1300px);
 /* 320px => 280px */
 
