@@ -11,6 +11,7 @@ const cache = require('gulp-cache');
 const del = require('del');
 const postcss = require('gulp-postcss');
 const webpack = require("webpack-stream");
+const rename = require('gulp-rename');
 const pug = require('gulp-pug');
 const log = require('fancy-log');
 
