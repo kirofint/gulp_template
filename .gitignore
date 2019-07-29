@@ -4,4 +4,5 @@ src/wordpress
 src/fonts
 src/scripts
 src/styles
+src/libs
 src/*.html
