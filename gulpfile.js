@@ -8,14 +8,14 @@ const cleanCSS = require('gulp-clean-css');
 const imagemin = require('gulp-imagemin');
 const pngquant = require('imagemin-pngquant');
 const cache = require('gulp-cache');
-const del = require('del');
+const del = require('rimraf');
 const postcss = require('gulp-postcss');
 const webpack = require('webpack-stream');
 const rename = require('gulp-rename');
 const pug = require('gulp-pug');
 //const log = require('fancy-log');
 
-const public_path = "public";
+var public_path = "public";
 
 var webConfig =
 {
@@ -69,7 +69,7 @@ function browserReload() {
     browserSync.init({
         server: { baseDir: "./src" },
         notify: false,
-        open: false
+        open: false,
     });
 
     watch('src/js/*.js', js);
@@ -130,5 +130,4 @@ function collect() {
 exports.build = series(collect, setjs, setcss, img);
 exports.default = parallel(fonts, styles, js, convert_to_html, browserReload);
 exports.clear =()=> cache.clearAll();
-
 /** use the "rimraf node_modules" for deleting */
