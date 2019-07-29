@@ -100,7 +100,7 @@ function setcss() {
   return src('src/styles/**/*.css')
     .pipe(sourcemaps.init())
       .pipe(postcss([
-        autoprefixer({ grid: true, overrideBrowserslist: ["ie >= 9", "> 0%"],	cascade: false })
+        autoprefixer({ grid: true, overrideBrowserslist: ["ie >= 9", "> 1%"],	cascade: false })
       ]))
       .pipe(dest(`${public_path}/styles`))
       .pipe(rename("main.min.css"))
