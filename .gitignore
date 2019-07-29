@@ -1,8 +1,12 @@
-node_modules
-public
-src/wordpress
-src/fonts
-src/scripts
-src/styles
-src/libs
-src/*.html
+# Ignore everything
+*
+# But not these files
+!.gitignore
+!.babelrc
+!gulpfile.js
+!package.json
+!package-lock.json
+!html_compile
+!src/img
+!src/js
+!src/sass

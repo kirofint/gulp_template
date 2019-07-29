@@ -10,7 +10,7 @@ const pngquant = require('imagemin-pngquant');
 const cache = require('gulp-cache');
 const del = require('del');
 const postcss = require('gulp-postcss');
-const webpack = require("webpack-stream");
+const webpack = require('webpack-stream');
 const rename = require('gulp-rename');
 const pug = require('gulp-pug');
 //const log = require('fancy-log');
@@ -84,8 +84,14 @@ function img() {
 		.pipe(cache(imagemin({
 			interlaced: true,
 			progressive: true,
-			svgoPlugins: [{removeViewBox: false}],
-			use: [pngquant()]
+			svgoPlugins: [{ removeViewBox: false }],
+			use: [
+        pngquant({
+            quality: '70-90',
+            speed: 1,
+            floyd: 1,
+        })
+      ]
 		})))
 		.pipe(dest(`${public_path}/img`));
 }
