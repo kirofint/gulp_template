@@ -44,8 +44,6 @@ function fonts() {
   return new Promise(function(resolve) {
     src('node_modules/font-awesome/fonts/*')
       .pipe(dest('src/fonts/FontAwesome'));
-    src('node_modules/normalize.css/normalize.css')
-      .pipe(dest('src/libs'));
    resolve();
   });
 }
@@ -100,7 +98,10 @@ function setcss() {
   return src('src/styles/**/*.css')
     .pipe(sourcemaps.init())
       .pipe(postcss([
-        autoprefixer({ grid: true, overrideBrowserslist: ["ie >= 9", "> 1%"],	cascade: false })
+        autoprefixer({
+          grid: true,
+          overrideBrowserslist: ["ie >= 9", "> 1%"],cascade: false,
+        })
       ]))
       .pipe(dest(`${public_path}/styles`))
       .pipe(rename("main.min.css"))
