@@ -1,0 +1,12 @@
+# Ignore everything
+*
+# But not these files
+!.gitignore
+!.babelrc
+!gulpfile.js
+!package.json
+!package-lock.json
+!html_compile
+!src/img
+!src/js
+!src/sass
